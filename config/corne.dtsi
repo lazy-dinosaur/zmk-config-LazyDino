@@ -69,8 +69,7 @@ RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)  RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10
         reg = <0x2a>;
         status = "okay";
         dr-gpios = <&gpio0 7 (GPIO_ACTIVE_HIGH)>;
-
-        sensitivity = "4x";
+        sensitivity = "2x";
         sleep;
         no-taps;
     };
