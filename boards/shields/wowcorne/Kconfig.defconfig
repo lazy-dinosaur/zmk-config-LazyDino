@@ -1,24 +1,34 @@
-if SHIELD_CORNE_RIGHT
+if SHIELD_WOWCORNE_RIGHT
 
 config ZMK_KEYBOARD_NAME
-    default "Corne"
+    default "WowCorne"
 
 config ZMK_SPLIT_ROLE_CENTRAL
     default y
 
 endif
 
-if SHIELD_CORNE_LEFT || SHIELD_CORNE_RIGHT
+if SHIELD_WOWCORNE_LEFT || SHIELD_WOWCORNE_RIGHT
 
 config ZMK_SPLIT
     default y
+
+if ZMK_DISPLAY
+
+config I2C
+    default y
+
+config SSD1306
+    default y
+
+endif # ZMK_DISPLAY
 
 if LVGL
 
 config LV_Z_VDB_SIZE
     default 64
 
-config LV_Z_DPI
+config LV_DPI_DEF
     default 148
 
 config LV_Z_BITS_PER_PIXEL

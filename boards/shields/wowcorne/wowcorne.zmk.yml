@@ -1,0 +1,15 @@
+file_format: "1"
+id: wowcorne
+name: wowcorne
+type: shield
+url: https://github.com/WowCole/zmk-config-corne-cirque/
+requires: [pro_micro]
+exposes:
+  - i2c_glidepoint
+
+features:
+  - keys
+
+siblings:
+  - wowcorne_left
+  - wowcorne_right
