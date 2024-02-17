@@ -19,6 +19,6 @@
 ---
 include:
   - board: nice_nano_v2
-    shield: wowcorne_right
-  - board: nice_nano_v2
     shield: wowcorne_left
+  - board: nice_nano_v2
+    shield: wowcorne_right

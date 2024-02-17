@@ -11,5 +11,5 @@ features:
   - keys
 
 siblings:
-  - wowcorne_left
   - wowcorne_right
+  - wowcorne_left
