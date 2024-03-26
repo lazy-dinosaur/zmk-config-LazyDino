@@ -5,11 +5,19 @@
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
+#define ZMK_MOUSE_DEFAULT_MOVE_VAL 1500  // 600
+#define ZMK_MOUSE_DEFAULT_SCRL_VAL 20    // 10
+
+#include <dt-bindings/zmk/mouse.h>
+//#include <behaviors/mouse_keys.dtsi>
+
+
 
 / {
     chosen {
         zmk,kscan = &kscan0;
         zmk,matrix-transform = &default_transform;
+        zephyr,console = &cdc_acm_uart;
     };
 
     default_transform: keymap_transform_0 {

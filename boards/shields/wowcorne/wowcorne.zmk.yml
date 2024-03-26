@@ -5,7 +5,7 @@ type: shield
 url: https://github.com/WowCole/zmk-config-corne-cirque/
 requires: [pro_micro]
 exposes:
-  - i2c_glidepoint
+  - i2c_cirque
 
 features:
   - keys

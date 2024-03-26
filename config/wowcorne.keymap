@@ -1,0 +1,192 @@
+#include <behaviors.dtsi>
+#include <dt-bindings/zmk/keys.h>
+
+#include <dt-bindings/zmk/mouse.h>
+
+#include "../zmk-nodefree-config/helper.h"
+#include "../zmk-nodefree-config/keypos_def/keypos_42keys.h"
+#include "../zmk-nodefree-config/international_chars/german.dtsi"
+
+/* layer and key shortcuts */
+
+
+#define DEF 0
+#define NAV 1
+#define FN 2
+#define NUM 3
+#define SYS 4
+#define MOUSE 6
+
+#include "mouse.dtsi"
+#include "combos.dtsi"
+
+#define XXX &none
+#define ___ &trans
+
+#define ESCM &mt LCTRL ESC
+
+/* Global settings */
+
+#define QUICK_TAP_MS 175
+
+&sk {  // sticky-key config
+    release-after-ms = <900>;  // release after 0.6s
+    quick-release;             // no double capitalization when rolling keys
+};
+
+&sl {  // sticky-layer config
+    ignore-modifiers;          // allow chording sticky mods & layers
+};
+
+&lt {  // layer-tap config
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+};
+
+/* Homerow mods */
+
+#define KEYS_L LT0 LT1 LT2 LT3 LT4 LT5 LM0 LM1 LM2 LM3 LM4 LM5 LB0 LB1 LB2 LB3 LB4 LB5  // left hand
+#define KEYS_R RT0 RT1 RT2 RT3 RT4 RT5 RM0 RM1 RM2 RM3 RM4 RM5 RB0 RB1 RB2 RB3 RB4 RB5 // right hand
+#define THUMBS LH2 LH1 LH0 RH0 RH1 RH2                                      // thumbs
+
+#define MAKE_HRM(NAME, HOLD, TAP, TRIGGER_POS) \
+    ZMK_BEHAVIOR(NAME, hold_tap, \
+        flavor = "balanced"; \
+        tapping-term-ms = <280>; \
+        quick-tap-ms = <QUICK_TAP_MS>; \
+        require-prior-idle-ms = <150>; \
+        bindings = <HOLD>, <TAP>; \
+        hold-trigger-key-positions = <TRIGGER_POS>; \
+        hold-trigger-on-release; \
+    )
+MAKE_HRM(hml, &kp, &kp, KEYS_R THUMBS)  // left-hand HRMs
+MAKE_HRM(hmr, &kp, &kp, KEYS_L THUMBS)  // right-hand HRMs
+
+//MAKE_HRM(hml_repeat, &kp, &key_repeat, KEYS_R THUMBS)  // used for HRM-combo
+//MAKE_HRM(hmr_lpar_lt, &kp, &lpar_lt, KEYS_L THUMBS)    // "    "   "   "
+//MAKE_HRM(hmr_rpar_gt, &kp, &rpar_gt, KEYS_L THUMBS)    // "    "   "   "
+
+/* Nav cluster */
+
+// long-tap action on hold, short-tap action on all interrupts
+#define MT_CORE \
+    flavor = "tap-preferred"; \
+    tapping-term-ms = <220>; \
+    quick-tap-ms = <220>; \
+    hold-trigger-key-positions = <0>;
+
+&mt { MT_CORE };
+ZMK_BEHAVIOR(mt_home, hold_tap, bindings = <&masked_home>, <&kp>; MT_CORE)
+ZMK_BEHAVIOR(mt_end,  hold_tap,  bindings = <&masked_end>, <&kp>; MT_CORE)
+
+#define NAV_LEFT  &mt_home 0   LEFT    // tap: left  | long-tap: beginning of line
+#define NAV_RIGHT &mt_end 0    RIGHT   // tap: right | long-tap: end       of line
+#define NAV_UP    &mt LC(HOME) UP      // tap: up    | long-tap: beginning of document
+#define NAV_DOWN  &mt LC(END)  DOWN    // tap: down  | long-tap: end       of document
+#define NAV_BSPC  &mt LC(BSPC) BSPC    // tap: bspc  | long-tap: delete word backward
+#define NAV_DEL   &mt LC(DEL)  DEL     // tap: del   | long-tap: delete word forward
+
+// mask CTRL when holding left/right to avoid accidental jumps to beginning/end of document
+#define MASK_MODS(NAME, MODS, BINDING) \
+    ZMK_BEHAVIOR(NAME, mod_morph, \
+        bindings = <BINDING>, <BINDING>; \
+        mods = <MODS>; \
+    )
+MASK_MODS(masked_home, (MOD_LCTL), &kp HOME)
+MASK_MODS(masked_end,  (MOD_LCTL), &kp END)
+
+/* Caps-word, num-word and smart-mouse */
+
+// tap: sticky-shift | shift + tap/ double-tap: caps-word | hold: shift
+ZMK_BEHAVIOR(smart_shft, mod_morph,
+    bindings = <&sk LSHFT>, <&caps_word>;
+    mods = <(MOD_LSFT)>;
+)
+&caps_word {  // mods deactivate caps-word, requires PR #1451
+    /delete-property/ ignore-modifiers;
+};
+
+// tap: num-word | double-tap: sticky num-layer | hold: num-layer
+#define SMART_NUM &smart_num NUM 0
+ZMK_BEHAVIOR(smart_num, hold_tap,
+    flavor = "balanced";
+    tapping-term-ms = <200>;
+    quick-tap-ms = <QUICK_TAP_MS>;
+    bindings = <&mo>, <&num_dance>;
+)
+ZMK_BEHAVIOR(num_dance, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&num_word>, <&sl NUM>;  // reverse this for sticky-num on single tap
+)
+&num_word {  // num-word, requires PR #1451
+    layers = <NUM>;
+    continue-list = <BSPC DEL DOT COMMA PLUS MINUS STAR FSLH EQUAL>;
+};
+
+/* custom behaviors */
+
+// homerow mods
+ZMK_BEHAVIOR(hrm, hold_tap,
+    flavor = "balanced";
+    tapping-term-ms = <280>;
+    quick-tap-ms = <125>;
+    bindings = <&kp>, <&kp>;
+)
+
+// tap: sticky shift | double tap: capsword
+ZMK_BEHAVIOR(ss_cw, tap_dance,
+    tapping-term-ms = <200>;
+    bindings = <&sk LSHFT>, <&caps_word>;
+)
+
+// tap: backspace | shift + tap: delete | hold: num layer
+//ZMK_BEHAVIOR(bs_del_num, mod_morph,
+//    bindings = <&lt NUM BSPC>, <&kp DEL>;
+//    mods = <(MOD_LSFT|MOD_RSFT)>;
+//)
+
+
+
+
+
+
+/* keymap */
+
+ZMK_LAYER(default_layer,
+     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+          &kp TAB       &kp Q         &kp W         &kp E         &kp R         &kp T             &kp Y         &kp U         &kp I         &kp O         &kp P         &kp BSPC
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          ESCM          &hrm LGUI A   &hrm LALT S   &hrm LCTRL D  &hrm LSHFT F  &kp G             &kp H         &hrm RSHFT J  &hrm LCTRL K  &hrm LALT L   &kp SEMI      &none
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          &kp LGUI      &kp Z         &kp X         &kp C         &kp V         &kp B             &kp N         &kp M         &kp COMMA     &kp DOT       &kp FSLH      &none
+     // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+                                                    &kp LSHFT     &mt NAV       &kp SPC           &kp RET       &mt NUM       &ss_cw
+     //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+)
+
+ZMK_LAYER(nav_layer,
+
+     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+          ___           ___           ___           ___           ___           ___               &kp PG_UP     &kp HOME      &kp UP        &kp END       &kp INS       ___
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          ___           &sk LGUI      &sk LALT      &sk LCTRL     &sk LSHFT     ___               &kp PG_DN     &kp LEFT      &kp DOWN      &kp RIGHT     &kp DEL       ___
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          ___           ___           ___           ___           ___           ___               ___           &kp LC(X)     &kp LC(INS)   &kp LS(INS)   ___           ___
+     // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+                                                    ___           ___           ___               ___           ___           ___
+     //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+)
+
+ZMK_LAYER(num_layer,
+     // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+          ___           &kp ESC       &kp N7        &kp N8        &kp N9        &kp STAR          ___           ___           ___           ___           ___           ___
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          ___           &kp TAB       &kp N4        &kp N5        &kp N6        &kp PLUS          ___           &sk RSHFT     &sk LCTRL     &sk LALT      &sk LGUI      ___ 
+     // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+          ___           &kp RET       &kp N1        &kp N2        &kp N3        &kp FSLH          ___           ___           ___           ___           ___           ___
+     // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+                                                    &kp DOT       &kp N0        &kp MINUS         ___           ___           ___
+     //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+)
+
