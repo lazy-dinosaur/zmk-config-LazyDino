@@ -18,9 +18,11 @@
 #
 ---
 include:
+  # - board: nice_nano_v2
+  # shield: wowcorne_left
+  #  - board: nice_nano_v2
+  #  shield: wowcorne_right
   - board: nice_nano_v2
-    shield: wowcorne_left
-  - board: nice_nano_v2
-    shield: wowcorne_right
+    shield: settings_reset
     #cmake-args: -DCONFIG_ZMK_USB_LOGGING=y
     #artifact-name: wowcorne_right_with_logging

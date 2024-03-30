@@ -6,3 +6,28 @@
   │ LB5 LB4 LB3 LB2 LB1 LB0 │ │ RB0 RB1 RB2 RB3 RB4 │
   ╰───────────╮ LH2 LH1 LH0 │ │ RH0 RH1 RH2 ╭───────╯
               ╰─────────────╯ ╰─────────────╯ */
+// use require-prior-idle-ms for combos
+//
+#undef COMBO_HOOK
+#define COMBO_HOOK require-prior-idle-ms = <150>;
+
+#define COMBO_TERM_FAST 18
+#define COMBO_TERM_SLOW 30
+
+// use require-prior-idle-ms for combos
+// #undef COMBO_HOOK
+// #define COMBO_HOOK require-prior-idle-ms = <150>;
+
+/* Horizontal combos - left hand */
+//ZMK_COMBO(esc,   &kp ESC,       LT3 LT2,     DEF NAV NUM, COMBO_TERM_FAST)
+
+
+/* Horizontal combos - right hand */
+//ZMK_COMBO(bspc,  &kp BSPC,      RT1 RT2,     DEF NAV NUM, COMBO_TERM_FAST)
+
+/* Vertical combos - left hand */
+//ZMK_COMBO(at,    &kp AT,        LT3 LM3,     DEF NAV NUM, COMBO_TERM_SLOW)
+
+/* Vertical combos - right hand */
+//ZMK_COMBO(caret, &kp CARET,     RT0 RM0,     DEF NAV NUM, COMBO_TERM_SLOW)
+
