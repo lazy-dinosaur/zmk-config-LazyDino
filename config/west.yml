@@ -14,5 +14,8 @@ manifest:
     - name: cirque-input-module
       remote: petejohanson
       revision: main
+    - name: zmk-helpers
+      remote: urob
+      revision: v2 # t 
   self:
     path: config

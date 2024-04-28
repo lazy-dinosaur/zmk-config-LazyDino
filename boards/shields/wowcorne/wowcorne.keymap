@@ -153,7 +153,7 @@
    &trans     &none   &mkp MCLK      &mkp RCLK       &mkp LCLK      &none               &none   &trans     &trans   &none   &none &none
    &kp LSHFT  &none   &none          &none           &msc SCRL_DOWN &none               &none   &none      &none    &none   &none &none
                                      &trans          &none          &trans           &kp RET    &none      &none
-                        >
+                        >;
                 };
         };
 };

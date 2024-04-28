@@ -1,6 +1,7 @@
-[submodule "zmk-nodefree-config"]
-	path = zmk-nodefree-config
-	url = https://github.com/urob/zmk-nodefree-config.git
 [submodule "cirque-input-module"]
   path = cirque-input-module
   url = https://github.com/petejohanson/cirque-input-module.git
+[submodule "config/zmk-helpers-repo"]
+	path = config/zmk-helpers-repo
+	url = https://github.com/urob/zmk-helpers
+	branch = v2
