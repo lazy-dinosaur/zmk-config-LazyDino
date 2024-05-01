@@ -44,7 +44,7 @@
     compatible = "zmk,input-listener";
     device = <&cirque>;
     y-invert;
-    scale-multiplier = <5>;
+    scale-multiplier = <3>;
     scale-divisor = <1>;
   };
 };
