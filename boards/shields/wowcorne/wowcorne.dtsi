@@ -12,6 +12,29 @@
 //#include <behaviors/mouse_keys.dtsi>
 
 
+&pro_micro_i2c {
+    status = "okay";
+    clock-frequency = < 400000 >;
+    cirque: cirque@2a {
+        compatible = "cirque,pinnacle";
+        reg = <0x2a>;
+        status = "okay";
+        dr-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH)>;
+        sensitivity = "2x";
+        sleep;
+        no-taps;
+    };
+   };
+
+/ {
+  cirque_listener {
+    compatible = "zmk,input-listener";
+    device = <&cirque>;
+    y-invert;
+    scale-multiplier = <3>;
+    scale-divisor = <1>;
+  };
+};
 
 / {
     chosen {
