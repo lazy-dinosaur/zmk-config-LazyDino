@@ -16,6 +16,6 @@ manifest:
       revision: main
     - name: zmk-helpers
       remote: urob
-      revision: v2 # t 
+      revision: v2 # t
   self:
     path: config

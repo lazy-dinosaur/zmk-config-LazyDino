@@ -1,3 +1,4 @@
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 
@@ -5,15 +6,16 @@
 
 /* #if CONFIG_WIRELESS */
 /*     #include <dt-bindings/zmk/bt.h> */
-/*     #define _BT_SEL_KEYS_ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR */
+/*     #define _BT_SEL_KEYS_ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3
+ * &bt BT_CLR */
 /* #else */
 /*     #define _BT_SEL_KEYS_ &trans &trans &trans &trans &trans */
 /* #endif */
-#define HOST_OS 1 
+#define HOST_OS 1
 #include "zmk-helpers/helper.h"
 #include "zmk-helpers/key-labels/42.h"
-#include "zmk-helpers/unicode-chars/greek.dtsi"
 #include "zmk-helpers/unicode-chars/german.dtsi"
+#include "zmk-helpers/unicode-chars/greek.dtsi"
 
 /* layer and key shortcuts */
 #define DEF 0
@@ -24,81 +26,15 @@
 #define UC 5
 #define MOUSE 6
 
-#include "mouse.dtsi"
 #include "combos.dtsi"
+#include "mouse.dtsi"
 
 #define XXX &none
 #define ___ &trans
 
-
 /* Global settings */
 
 #define QUICK_TAP_MS 175
-
-/{
-  cirque_mmv {
-    compatible = "zmk,input-behavior-listener";
-    device = <&cirque>;
-    layers= <DEF SYS UC MOUSE>;
-    evt-type = <INPUT_EV_REL>;
-    x-input-code = <INPUT_REL_X>;
-    y-input-code = <INPUT_REL_Y>;
-    // scale-multiplier = <7>;
-    // scale-divisor = <4>;
-    scale-multiplier = <3>;
-    scale-divisor = <1>;
-    // bindings = <&ib_tog_layer MOUSE>;
-    y-invert;
-  }; 
-  cirque_scl {
-    compatible = "zmk,input-behavior-listener";
-    device = <&cirque>;
-    layers = <NAV>;
-    evt-type = <INPUT_EV_REL>;
-    
-    /* slienting x-axis with alt event code */
-    x-input-code = <INPUT_REL_MISC>;
-    y-input-code = <INPUT_REL_WHEEL>;
-
-    /* invent scrolling direction */
-    y-invert;
-    bindings = <&ib_wheel_scaler 1 16>;
-  };
-  cirque_hscl {
-    compatible = "zmk,input-behavior-listener";
-    device = <&cirque>;
-    layers = <FN>;
-    evt-type = <INPUT_EV_REL>;
-    
-    /* slienting x-axis with alt event code */
-    x-input-code = <INPUT_REL_HWHEEL>;
-    y-input-code = <INPUT_REL_MISC>;
-
-    /* invent scrolling direction */
-    // y-invert;
-    x-invert;
-    bindings = <&ib_hwheel_scaler 1 16>;
-  };
-  // ib_tog_layer: ib_tog_layer {
-  //   compatible = "zmk,input-behavior-tog-layer";
-  //   #binding-cells = <1>;
-  //   time-to-live-ms = <1000>;
-  // };
-  ib_wheel_scaler: ib_wheel_scaler {
-    compatible = "zmk,input-behavior-scaler";
-    #binding-cells = <2>;
-    evt-type = <INPUT_EV_REL>;
-    input-code = <INPUT_REL_WHEEL>;
-  };
-
-  ib_hwheel_scaler: ib_hwheel_scaler {
-    compatible = "zmk,input-behavior-scaler";
-    #binding-cells = <2>;
-    evt-type = <INPUT_EV_REL>;
-    input-code = <INPUT_REL_HWHEEL>;
-  };
-  
-};
 
 
 &sk {  // sticky-key config
@@ -117,6 +53,7 @@
 };
 
 /* Homerow mods */
+
 #define KEYS_L LT0 LT1 LT2 LT3 LT4 LT5 LM0 LM1 LM2 LM3 LM4 LM5 LB0 LB1 LB2 LB3 LB4 LB5  // left hand
 #define KEYS_R RT0 RT1 RT2 RT3 RT4 RT5 RM0 RM1 RM2 RM3 RM4 RM5 RB0 RB1 RB2 RB3 RB4 RB5 // right hand
 #define THUMBS LH2 LH1 LH0 RH0 RH1 RH2                                      // thumbs
@@ -127,7 +64,7 @@
         flavor = "balanced"; \
         tapping-term-ms = <280>; \
         quick-tap-ms = <QUICK_TAP_MS>; \
-        require-prior-idle-ms = <100>; \
+        require-prior-idle-ms = <150>; \
         bindings = <HOLD>, <TAP>; \
         hold-trigger-key-positions = <TRIGGER_POS>; \
         hold-trigger-on-release; \
@@ -194,13 +131,13 @@ ZMK_TAP_DANCE(num_dance,
 )
 &num_word {  // num-word, requires PR #1451
     layers = <NUM>;
-    continue-list = <BSPC DEL DOT COMMA PLUS KP_PLUS KP_MINUS MINUS STAR FSLH EQUAL>;
+    continue-list = <BSPC DEL DOT COMMA PLUS MINUS STAR FSLH EQUAL>;
 };
 
 // smart-mouse, requires PR #1366
 ZMK_TRI_STATE(smart_mouse,
     bindings = <&tog MOUSE>, <&none>, <&tog MOUSE>;
-    ignored-key-positions = <LT1 LT2 LT3 LM1 LM2 LM3 LB4 LH2 LH1 LH0>;
+    ignored-key-positions = <LT1 LT2 LT3 LM1 LM2 LM3 LM4 LB2 LH2 LH1 LH0 RM0 RM1 RM2 RM3>;
     ignored-layers = <MOUSE>;
 )
 
@@ -263,16 +200,6 @@ ZMK_HOLD_TAP(mt_esc,
              bindings = <&kp>, <&kp>;
 )
 
-ZMK_HOLD_TAP(ht_mouse,
-             flavor = "hold-preferred";
-             tapping-term-ms = <125>;
-             quick-tap-ms = <125>;
-             bindings = <&mo>, <&mkp>;
-)
-
-#define MKP_R &ht_mouse NAV RCLK
-#define MKP_L &ht_mouse FN LCLK
-
 #define ESCM &mt_esc LCTRL ESC
 
 SIMPLE_MORPH(spc_morph, SFT, &kp SPACE, &dot_spc)
@@ -315,7 +242,6 @@ ZMK_MACRO(win_sleep,
 /* Keymap */
 
 ZMK_CONDITIONAL_LAYER(FN NUM, SYS)  // FN + NUM --> SYS
-// ZMK_CONDITIONAL_LAYER(NAV FN, MOUSE)  // FN + NUM --> SYS
 
 /* keymap */
 
@@ -325,32 +251,32 @@ ZMK_LAYER(base,
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
          ESCM           &hml LGUI A    &hml LALT S    &hml LSHFT D   &hml LCTRL F   &kp G              &kp H          &hmr RCTRL J   &hmr RSHFT K   &hmr RALT L    &hmr RGUI SQT  LANG_CANGE
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-         &kp LGUI       &kp Z          &kp X          &kp C          &kp V          &kp B              &kp N          &kp M          &comma_morph   &dot_morph     &qexcl         &kp RALT
+         &kp LALT       &kp Z          &kp X          &kp C          &kp V          &kp B              &kp N          &kp M          &comma_morph   &dot_morph     &qexcl         CANCEL
      // ╰──────────────┴──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┴──────────────┴──────────────╯
-                                                      &smart_shft    &mo NAV        &lt_spc FN 0       &kp RET        SMART_NUM      &smart_shft 
+                                                      SMART_NUM      &mo NAV        &spc_morph         &kp RET        &mo FN         &smart_shft 
      //                                              ╰──────────────┴──────────────┴──────────────╯   ╰──────────────┴──────────────┴──────────────╯
 )
 
 
 ZMK_LAYER(nav,
      // ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮   ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
-         ___            ___            &mkp MCLK      &mkp RCLK      &mkp LCLK      ___                ___            ___            ___            ___            &kp PG_UP      ___
+         ___            ___            ___            ___            ___            ___                ___            &kp PG_DN      &kp PG_UP      ___            ___            ___
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-         ___            &sk LGUI       &sk LALT       &sk LSHFT      &sk LCTRL      ___                NAV_LEFT       NAV_DOWN       NAV_UP         NAV_RIGHT      &kp PG_DN      ___
+         ___            &sk LGUI       &sk LALT       &sk LSHFT      &sk LCTRL      ___                NAV_LEFT       NAV_DOWN       NAV_UP         NAV_RIGHT      ___            ___
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
          ___            ___            ___            ___            ___            ___                &kp INS        ___            &kp LT         &kp GT         ___            ___
      // ╰──────────────┴──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┴──────────────┴──────────────╯
-                                                      ___            ___            ___                ___            ___            CANCEL 
+                                                      ___            ___            ___                ___            CANCEL         ___ 
      //                                              ╰──────────────┴──────────────┴──────────────╯   ╰──────────────┴──────────────┴──────────────╯
 )
 
 ZMK_LAYER(fn,
      // ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮   ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
-         ___            ___            &kp F7         &kp F8         &kp F9         &kp F10            ___            &kp C_VOL_UP   &kp C_BRI_UP   ___            ___            ___
+         ___            ___            &kp C_BRI_DN   ___            &kp C_BRI_UP   ___                ___            &kp F7         &kp F8         &kp F9         &kp F10        ___
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-         ___            ___            &hml LALT F4   &hml LSHFT F5  &hml LCTRL F6  &kp F11            ___            &kp C_VOL_DN   &kp C_BRI_DN   &kp C_VOL_UP   &kp C_BRI_UP   ___
+         ___            ___            &kp C_VOL_DN   &kp C_MUTE     &kp C_VOL_UP   ___                ___            &hmr RCTRL F4  &hmr RSHFT F5  &hmr RALT F6   &hmr RGUI F11  ___
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-         ___            ___            &kp F1         &kp F2         &kp F3         &kp F12            ___            &kp C_MUTE     &kp C_PREV     &kp C_NEXT     &kp C_PP       ___
+         ___            ___            &kp C_PREV     &kp C_PP       &kp C_NEXT     ___                ___            &kp F1         &kp F2         &kp F3         &kp F12        ___
      // ╰──────────────┴──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┴──────────────┴──────────────╯
                                                       ___            ___            ___                ___            ___            ___ 
      //                                              ╰──────────────┴──────────────┴──────────────╯   ╰──────────────┴──────────────┴──────────────╯
@@ -358,13 +284,13 @@ ZMK_LAYER(fn,
 
 ZMK_LAYER(num,
      // ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮   ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
-         ___            ___            &kp N7         &kp N8         &kp N9         ___                ___            ___            ___            ___            ___            ___
+         ___            ___            ___            ___            ___            ___                ___            &kp N7         &kp N8         &kp N9         ___            ___
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-         ___            ___            &hml LALT N4   &hml LSHFT N5  &hml LCTRL N6  ___                ___            ___            ___            ___            ___            ___
+         ___            ___            ___            ___            ___            ___                ___            &hmr RCTRL N4  &hmr RSHFT N5  &hmr RALT N6   ___            ___
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-         ___            ___            &kp N1         &kp N2         &kp N3         ___                ___            ___            ___            ___            ___            ___
+         ___            ___            ___            ___            ___            ___                ___            &kp N1         &kp N2         &kp N3         ___            ___
      // ╰──────────────┴──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┴──────────────┴──────────────╯
-                                                      ___            &kp N0         ___                ___            CANCEL         ___ 
+                                                      ___            ___            ___                ___            &kp N0         CANCEL 
      //                                              ╰──────────────┴──────────────┴──────────────╯   ╰──────────────┴──────────────┴──────────────╯
 )
 
@@ -394,13 +320,12 @@ ZMK_LAYER(uc,
 
 ZMK_LAYER(mouse,
      // ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮   ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
-         ___            ___            &mkp MCLK      &mkp RCLK      &mkp LCLK      ___                ___            ___            ___            ___            ___            ___
-     // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
          ___            ___            ___            ___            ___            ___                ___            ___            ___            ___            ___            ___
+     // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+         ___            ___            ___            ___            ___            ___                MW_L           MW_D           MW_U           MW_R           ___            ___
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
          ___            ___            ___            ___            ___            ___                ___            ___            ___            ___            ___            ___
      // ╰──────────────┴──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┴──────────────┴──────────────╯
-                                                      ___            ___            ___                ___            CANCEL         ___ 
+                                                      &mkp MCLK      &mkp RCLK      &mkp LCLK          ___            CANCEL         ___ 
      //                                              ╰──────────────┴──────────────┴──────────────╯   ╰──────────────┴──────────────┴──────────────╯
 )
-

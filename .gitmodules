@@ -5,3 +5,6 @@
 	path = config/zmk-helpers-repo
 	url = https://github.com/urob/zmk-helpers
 	branch = v2
+[submodule "zmk-input-behavior-listener"]
+	path = zmk-input-behavior-listener
+	url = https://github.com/badjeff/zmk-input-behavior-listener.git

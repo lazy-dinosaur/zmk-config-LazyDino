@@ -20,21 +20,21 @@
         reg = <0x2a>;
         status = "okay";
         dr-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH)>;
-        sensitivity = "2x";
-        sleep;
-        no-taps;
+        sensitivity = "1x";
+        //sleep;
+        // no-taps;
     };
    };
 
-/ {
-  cirque_listener {
-    compatible = "zmk,input-listener";
-    device = <&cirque>;
-    y-invert;
-    scale-multiplier = <3>;
-    scale-divisor = <1>;
-  };
-};
+/// {
+//  cirque_listener {
+//    compatible = "zmk,input-listener";
+//    device = <&cirque>;
+//    y-invert;
+//    scale-multiplier = <7>;
+//    scale-divisor = <4>;
+//  };
+//};
 
 / {
     chosen {
