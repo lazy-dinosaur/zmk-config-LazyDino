@@ -8,7 +8,7 @@
 
 ## feature
 
-대부분의 키맵이 [urob의 키맵](https://github.com/urob/zmk-config)과 비슷하나 기본적으로 qwerty 레이아웃을 사용
+기본적으로 대부분의 키맵이 [urob의 키맵](https://github.com/urob/zmk-config)과 동일하나 qwerty 레이아웃을 사용
 
 다음과 같은 부분이 다름
 
