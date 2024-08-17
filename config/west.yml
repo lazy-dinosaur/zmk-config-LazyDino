@@ -6,6 +6,8 @@ manifest:
       url-base: https://github.com/petejohanson
     - name: urob
       url-base: https://github.com/urob
+    - name: badjeff
+      url-base: https://github.com/badjeff
   projects:
     - name: zmk
       remote: urob
