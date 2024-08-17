@@ -26,9 +26,3 @@
 };
 
 
-//&usbd {
-//    status = "okay";
-//    cdc_acm_uart: cdc_acm_uart {
-//        compatible = "zephyr,cdc-acm-uart";
-//    };
-//};
