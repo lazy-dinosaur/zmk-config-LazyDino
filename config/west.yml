@@ -17,5 +17,8 @@ manifest:
     - name: zmk-helpers
       remote: urob
       revision: v2 # t
+    - name: zmk-input-behavior-listener
+      remote: badjeff
+      revision: main
   self:
     path: config
