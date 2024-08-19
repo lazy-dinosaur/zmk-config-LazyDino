@@ -43,8 +43,8 @@
     evt-type = <INPUT_EV_REL>;
     x-input-code = <INPUT_REL_X>;
     y-input-code = <INPUT_REL_Y>;
-    scale-multiplier = <10>;
-    scale-divisor = <4>;
+    scale-multiplier = <5>;
+    scale-divisor = <2>;
     // scale-multiplier = <3>;
     // scale-divisor = <1>;
     // bindings = <&ib_tog_layer MOUSE>;
