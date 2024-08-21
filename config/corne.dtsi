@@ -9,10 +9,38 @@
 #define ZMK_MOUSE_DEFAULT_SCRL_VAL 20    // 10
 
 #include <dt-bindings/zmk/mouse.h>
-//#include <behaviors/mouse_keys.dtsi>
+
+&pinctrl {
+  i2c1_default:i2c1_default {
+    group1 {
+      psels = <NRF_PSEL(TWIM_SDA, 0, 17)>,
+          <NRF_PSEL(TWIM_SCL, 0, 20)>;
+      // bias-disable;
+      bias-pull-up;
+    };
+  };
+  i2c1_sleep:i2c1_sleep {
+    group1 {
+      psels = <NRF_PSEL(TWIM_SDA, 0, 17)>,
+          <NRF_PSEL(TWIM_SCL, 0, 20)>;
+      // bias-disable;
+      bias-pull-up;
+      low-power-enable;
+    };
+  };
+
+};
+
+&i2c1{
+    status="disabled";
+    compatible = "nordic,nrf-twi";
+    pinctrl-0 = <&i2c1_default>;
+    pinctrl-1 = <&i2c1_sleep>;
+    pinctrl-names = "default", "sleep";
+};
 
 
-&pro_micro_i2c {
+&i2c1 {
     status = "okay";
     clock-frequency = < 400000 >;
     cirque: cirque@2a {
@@ -24,7 +52,7 @@
         //sleep;
         // no-taps;
     };
-   };
+};
 
 / {
     chosen {
@@ -66,7 +94,7 @@ RC(2,1) RC(2,2) RC(2,3) RC(2,4) RC(2,5)  RC(2,6) RC(2,7) RC(2,8) RC(2,9) RC(2,10
 
     kscan0: kscan {
         compatible = "zmk,kscan-gpio-matrix";
-
+        wakeup-source;
         diode-direction = "col2row";
         row-gpios
             = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
