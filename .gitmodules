@@ -8,3 +8,6 @@
 [submodule "zmk-input-behavior-listener"]
 	path = zmk-input-behavior-listener
 	url = https://github.com/badjeff/zmk-input-behavior-listener.git
+[submodule "zmk-split-peripheral-input-relay"]
+	path = zmk-split-peripheral-input-relay
+	url = https://github.com/badjeff/zmk-split-peripheral-input-relay.git
