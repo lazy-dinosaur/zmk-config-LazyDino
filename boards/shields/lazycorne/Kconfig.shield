@@ -1,0 +1,11 @@
+# Copyright (c) 2020 The ZMK Contributors
+# SPDX-License-Identifier: MIT
+
+config SHIELD_LAZYCORNE_LEFT
+	def_bool $(shields_list_contains,lazycorne_left)
+
+config SHIELD_LAZYCORNE_RIGHT
+	def_bool $(shields_list_contains,lazycorne_right)
+
+config SHIELD_LAZYCORNE_DONGLE
+	def_bool $(shields_list_contains,lazycorne_dongle)
