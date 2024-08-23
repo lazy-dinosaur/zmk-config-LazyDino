@@ -1,6 +1,3 @@
-[submodule "cirque-input-module"]
-  path = cirque-input-module
-  url = https://github.com/petejohanson/cirque-input-module.git
 [submodule "config/zmk-helpers-repo"]
 	path = config/zmk-helpers-repo
 	url = https://github.com/urob/zmk-helpers

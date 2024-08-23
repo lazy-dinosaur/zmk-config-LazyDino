@@ -1,15 +1,17 @@
 #include <dt-bindings/zmk/outputs.h>
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/bt.h>
 
-/* #if CONFIG_WIRELESS */
-/*     #include <dt-bindings/zmk/bt.h> */
-/*     #define _BT_SEL_KEYS_ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR */
-/* #else */
-/*     #define _BT_SEL_KEYS_ &trans &trans &trans &trans &trans */
-/* #endif */
-#define HOST_OS 1 
+#define CONFIG_WIRELESS 1
+
+#if CONFIG_WIRELESS
+    #include <dt-bindings/zmk/bt.h>
+    #define _BT_SEL_KEYS_ &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_CLR
+#else
+    #define _BT_SEL_KEYS_ &trans &trans &trans &trans &trans
+#endif
+
+#define HOST_OS 1
 #include "zmk-helpers/helper.h"
 #include "zmk-helpers/key-labels/42.h"
 #include "zmk-helpers/unicode-chars/greek.dtsi"
@@ -39,15 +41,13 @@
   cirque_mmv {
     compatible = "zmk,input-behavior-listener";
     device = <&cirque>;
-    layers= <DEF SYS UC MOUSE>;
+    layers= <DEF MOUSE>;
     evt-type = <INPUT_EV_REL>;
     x-input-code = <INPUT_REL_X>;
     y-input-code = <INPUT_REL_Y>;
     scale-multiplier = <2>;
     scale-divisor = <1>;
-    // scale-multiplier = <3>;
-    // scale-divisor = <1>;
-    // bindings = <&ib_tog_layer MOUSE>;
+    bindings = <&ib_tog_layer MOUSE>;
     y-invert;
   }; 
   cirque_scl {
@@ -79,11 +79,11 @@
     x-invert;
     bindings = <&ib_hwheel_scaler 1 16>;
   };
-  // ib_tog_layer: ib_tog_layer {
-  //   compatible = "zmk,input-behavior-tog-layer";
-  //   #binding-cells = <1>;
-  //   time-to-live-ms = <1000>;
-  // };
+  ib_tog_layer: ib_tog_layer {
+    compatible = "zmk,input-behavior-tog-layer";
+    #binding-cells = <1>;
+    time-to-live-ms = <500>;
+  };
   ib_wheel_scaler: ib_wheel_scaler {
     compatible = "zmk,input-behavior-scaler";
     #binding-cells = <2>;
@@ -263,15 +263,13 @@ ZMK_HOLD_TAP(mt_esc,
              bindings = <&kp>, <&kp>;
 )
 
-ZMK_HOLD_TAP(ht_mouse,
-             flavor = "hold-preferred";
-             tapping-term-ms = <125>;
-             quick-tap-ms = <125>;
-             bindings = <&mo>, <&mkp>;
-)
 
-#define MKP_R &ht_mouse NAV RCLK
-#define MKP_L &ht_mouse FN LCLK
+ZMK_HOLD_TAP(hml_sk,
+            flavor="balanced";
+            tapping-term-ms=<125>;
+            quick-tap-ms = <125>;
+            bindings = <&kp>, <&sk>;
+)
 
 #define ESCM &mt_esc LCTRL ESC
 
@@ -312,6 +310,11 @@ ZMK_MACRO(win_sleep,
 #define VOL_DOWN    &hmr RSHFT C_VOL_DN
 #define LANG_CANGE  &kp LC(SPC)
 
+#define SK_A &hml_sk LGUI LGUI 
+#define SK_S &hml_sk LALT LALT
+#define SK_D &hml_sk LSHFT LSHFT
+#define SK_F &hml_sk LCTRL LCTRL
+
 /* Keymap */
 
 ZMK_CONDITIONAL_LAYER(FN NUM, SYS)  // FN + NUM --> SYS
@@ -336,7 +339,7 @@ ZMK_LAYER(nav,
      // ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮   ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
          ___            ___            ___            &kp LS(TAB)    &swapper       ___                ___            ___            ___            ___            &kp PG_UP      ___
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-         ___            &sk LGUI       &sk LALT       &sk LSHFT      &sk LCTRL      ___                NAV_LEFT       NAV_DOWN       NAV_UP         NAV_RIGHT      &kp PG_DN      ___
+         ___            SK_A           SK_S           SK_D           SK_F           ___                NAV_LEFT       NAV_DOWN       NAV_UP         NAV_RIGHT      &kp PG_DN      ___
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
          ___            ___            ___            ___            ___            ___                &kp INS        ___            &kp LT         &kp GT         ___            ___
      // ╰──────────────┴──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┴──────────────┴──────────────╯
@@ -370,7 +373,7 @@ ZMK_LAYER(num,
 
 ZMK_LAYER(sys,
      // ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮   ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
-         ___            &bt BT_SEL 0   &bt BT_SEL 1   &bt BT_SEL 2   &bt BT_SEL 3   &bt BT_CLR         ___            ___            ___            ___            ___            ___
+         ___                                    _BT_SEL_KEYS_                                          ___            ___            ___            ___            ___            ___
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
          ___            ___            ___            ___            ___            &bootloader        &bootloader    &out OUT_TOG   ___            ___            ___            ___
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤

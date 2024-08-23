@@ -33,11 +33,11 @@
 
 ### Cirque 트랙패드의 추가
 
-- sleep 설정 제거
-  - sleep 설정 시 마우스를 다시 움직일때 딜레이 발생
+- cirque의 sleep 설정 제거
+  - cirque의 sleep 설정 시 마우스를 다시 움직일때 딜레이 발생
 - Tap 활성화
   - 한번 탭=왼쪽클릭 두번탭=왼쪽 클릭 후 홀드
 - **Input behavior module 적용**
   - NAV 레이어에 진입하면 트랙패드의 y축 인풋만 활성화되며 마우스 스크롤로 동작
   - FN 레이어에 진입하면 트랙패드의 x축 인풋만 활성화되며 마우스의 횡스크롤로 동작
-  - Mouse
+  - Trackpad 동작 시 MOUSE 레이어 자동으로 활성화
