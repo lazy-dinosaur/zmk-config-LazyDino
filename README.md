@@ -37,12 +37,14 @@
   - cirque의 sleep 설정 시 마우스를 다시 움직일때 딜레이 발생
 - Tap 활성화
   - 한번 탭=왼쪽클릭 두번탭=왼쪽 클릭 후 홀드
-- **Input behavior module 적용**
+- **[Input behavior module](https://github.com/badjeff/zmk-input-behavior-listener) 적용**
   - NAV 레이어에 진입하면 트랙패드의 y축 인풋만 활성화되며 마우스 스크롤로 동작
   - FN 레이어에 진입하면 트랙패드의 x축 인풋만 활성화되며 마우스의 횡스크롤로 동작
-  - Trackpad 동작 시 MOUSE 레이어 자동으로 활성화
+  - ~~Trackpad 동작 시 MOUSE 레이어 자동으로 활성화~~ - 아직 오토 마우스 레이어의 동작이 완벽하지 않음 qmk 처럼 손가락을 터치하고 있는것을 인지해야하는데 손가락의 움직임을 인지하여 터치를 하고 있더라도 움직이지 않으면 오토레이어가 꺼짐
 
 ### 동글 추가
+
+동글의 사용을 위해 [zmk-split-peripheral-input-relay](https://github.com/badjeff/zmk-split-peripheral-input-relay) 모듈 적용
 
 #### 장점
 
