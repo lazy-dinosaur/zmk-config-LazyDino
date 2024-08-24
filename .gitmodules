@@ -8,3 +8,6 @@
 [submodule "zmk-split-peripheral-input-relay"]
 	path = zmk-split-peripheral-input-relay
 	url = https://github.com/badjeff/zmk-split-peripheral-input-relay.git
+[submodule "cirque-input-module"]
+	path = cirque-input-module
+	url = https://github.com/badjeff/cirque-input-module.git
