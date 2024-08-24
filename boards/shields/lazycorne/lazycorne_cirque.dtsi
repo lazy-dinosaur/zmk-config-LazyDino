@@ -10,7 +10,9 @@
 // #define INPUT_REL_WHEEL 0x08            /**< Relative wheel coordinate */
 // #define INPUT_REL_HWHEEL 0x06           /**< Relative horizontal wheel coordinate */
 // #define INPUT_REL_MISC 0x09             /**< Relative misc coordinate */
-//
+
+
+// 만약 풀업저항이 물리적으로 장착되지 않았다면 소프트웨어적으로 처리할 수 있음
 // &pinctrl {
 //   i2c1_default:i2c1_default {
 //     group1 {
@@ -38,6 +40,16 @@
 //     pinctrl-0 = <&i2c1_default>;
 //     pinctrl-1 = <&i2c1_sleep>;
 //     pinctrl-names = "default", "sleep";
+//     clock-frequency = < 400000 >;
+//     cirque: cirque@2a {
+//         compatible = "cirque,pinnacle";
+//         reg = <0x2a>;
+//         status = "disabled";
+//         dr-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH)>;
+//         sensitivity = "1x";
+//         // sleep;
+//         // no-taps;
+//     };
 // };
 
 
