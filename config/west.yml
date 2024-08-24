@@ -24,6 +24,9 @@ manifest:
     - name: zmk-input-behavior-listener
       remote: badjeff
       revision: main
+    - name: zmk-split-peripheral-input-relay
+      remote: badjeff
+      revision: main
     - name: zmk-config-LazyDino
       remote: lazy-dinosaur
       revision: master
