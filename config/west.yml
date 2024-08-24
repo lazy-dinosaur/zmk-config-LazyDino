@@ -8,6 +8,8 @@ manifest:
       url-base: https://github.com/urob
     - name: badjeff
       url-base: https://github.com/badjeff
+    - name: lazy-dinosaur
+      url-base: https://github.com/lazy-dinosaur
   projects:
     - name: zmk
       remote: urob
@@ -21,6 +23,9 @@ manifest:
       revision: v2 # t
     - name: zmk-input-behavior-listener
       remote: badjeff
+      revision: main
+    - name: zmk-config-LazyDino
+      remote: lazy-dinosaur
       revision: main
   self:
     path: config

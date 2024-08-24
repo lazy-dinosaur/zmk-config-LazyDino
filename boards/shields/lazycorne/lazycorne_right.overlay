@@ -1,0 +1,50 @@
+#include "lazycorne.dtsi"
+#include "lazycorne_cirque.dtsi"
+
+&default_transform {
+    col-offset = <6>;
+};
+
+&five_column_transform {
+    col-offset = <6>;
+};
+
+&kscan0 {
+    compatible = "zmk,kscan-gpio-matrix";
+    label = "KSCAN"; 
+    row-gpios
+      = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+      , <&pro_micro 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+      , <&pro_micro 6 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+      , <&pro_micro 7 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+      ;
+    col-gpios
+        = <&pro_micro 14 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 15 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 18 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 19 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 20 GPIO_ACTIVE_HIGH>
+        , <&pro_micro 21 GPIO_ACTIVE_HIGH>
+        ;
+  };
+
+&pro_micro_i2c {
+  status="okay";
+};
+
+&cirque {
+  status="okay";
+};
+
+
+/ {
+	vtrackpad: virtual_input_trackpad {
+		compatible = "zmk,virtual-input";
+	};
+
+	input_relay_config_trackpad {
+		compatible = "zmk,split-peripheral-input-relay";
+		device = <&cirque>;
+		relay-channel = <102>;
+	};
+};
