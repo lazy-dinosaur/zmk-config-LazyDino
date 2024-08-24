@@ -4,7 +4,7 @@
 if SHIELD_LAZYCORNE_DONGLE
 
 config ZMK_KEYBOARD_NAME
-	default "LazyCorne_Dongle"
+	default "LazyCorne"
 	
 config ZMK_SPLIT_BLE_ROLE_CENTRAL
 	default y
