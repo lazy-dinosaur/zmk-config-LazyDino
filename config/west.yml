@@ -26,6 +26,6 @@ manifest:
       revision: main
     - name: zmk-config-LazyDino
       remote: lazy-dinosaur
-      revision: main
+      revision: master
   self:
     path: config
