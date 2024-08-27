@@ -21,5 +21,14 @@ config ZMK_SPLIT
 
 config ZMK_BLE
 	default y
-	
+
+config ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_FETCHING
+  default y
+
+config ZMK_SPLIT_BLE_CENTRAL_BATTERY_LEVEL_PROXY
+  default y
+
+config ZMK_BATTERY_REPORT_INTERVAL
+  default 60
+
 endif
