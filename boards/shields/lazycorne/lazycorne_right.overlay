@@ -30,13 +30,13 @@
 
 
 // 만약 풀업저항을 물리적으로 장착하지 않았다면 lazycorne_cirque.dtsi 참고 
-// &i2c1 {
-//   status="okay";
-// };
-
-&pro_micro_i2c{
+&i2c1 {
   status="okay";
 };
+
+//&pro_micro_i2c{
+//  status="okay";
+//};
 
 &cirque {
   status="okay";
