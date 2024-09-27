@@ -309,7 +309,7 @@ ZMK_MACRO(win_sleep,
 #define PIN_WIN     &kp LG(LC(LS(Q)))        // pin window across desktops
 #define PIN_APP     &kp LG(LC(LS(A)))        // pin application across desktops
 #define DSK_MGR     &kp LA(GRAVE)            // desktop manager
-#define VOL_DOWN    &hmr RSHFT C_VOL_DN
+#define VOL_DOWN    &hmr LSHFT C_VOL_DN
 #define LANG_CANGE  &kp LC(SPC)
 
 #define SK_A &hml_sk LGUI LGUI 
@@ -328,9 +328,9 @@ ZMK_LAYER(base,
      // ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮   ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
          &kp TAB        &kp Q          &kp W          &kp E          &kp R          &kp T              &kp Y          &kp U          &kp I          &kp O          &kp P          &bs_del
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-         ESCM           &hml LGUI A    &hml LALT S    &hml LSHFT D   &hml LCTRL F   &kp G              &kp H          &hmr RCTRL J   &hmr RSHFT K   &hmr RALT L    &hmr RGUI SQT  &kp LANG1
+         ESCM           &hml LGUI A    &hml LALT S    &hml LSHFT D   &hml LCTRL F   &kp G              &kp H          &hmr LCTRL J   &hmr LSHFT K   &hmr LALT L    &hmr LGUI SQT  &kp LANG1
      // ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-         &kp LGUI       &kp Z          &kp X          &kp C          &kp V          &kp B              &kp N          &kp M          &comma_morph   &dot_morph     &qexcl         &kp RALT
+         &kp LGUI       &kp Z          &kp X          &kp C          &kp V          &kp B              &kp N          &kp M          &comma_morph   &dot_morph     &qexcl         &kp LALT
      // ╰──────────────┴──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤   ├──────────────┼──────────────┼──────────────┼──────────────┴──────────────┴──────────────╯
                                                       &smart_shft    &mo NAV        &lt_spc FN 0       &kp RET        SMART_NUM      &smart_shft 
      //                                              ╰──────────────┴──────────────┴──────────────╯   ╰──────────────┴──────────────┴──────────────╯
