@@ -10,4 +10,4 @@
 	url = https://github.com/badjeff/zmk-split-peripheral-input-relay.git
 [submodule "cirque-input-module"]
 	path = cirque-input-module
-	url = https://github.com/badjeff/cirque-input-module.git
+	url = https://github.com/petejohanson/cirque-input-module.git

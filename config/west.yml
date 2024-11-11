@@ -16,7 +16,7 @@ manifest:
       revision: main
       import: app/west.yml
     - name: cirque-input-module
-      remote: badjeff
+      remote: petejohanson
       revision: main
     - name: zmk-helpers
       remote: urob
