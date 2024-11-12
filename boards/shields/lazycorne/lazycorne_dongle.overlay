@@ -3,6 +3,7 @@
 / {
     chosen {
         zmk,kscan = &mock_kscan;
+        //zephyr,console = &cdc_acm_uart;
     };
 
     mock_kscan: kscan_1 {
