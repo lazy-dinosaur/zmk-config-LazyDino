@@ -215,7 +215,7 @@ ZMK_TAP_DANCE(num_dance,
 
 // smart-mouse, requires PR #1366
 ZMK_TRI_STATE(smart_mouse,
-    bindings = <&ib_tog_layer MOUSE>, <&none>, <&to DEF>;
+    bindings = <&ib_tog_layer MOUSE>, <&ib_tog_layer MOUSE>, <&to DEF>;
     ignored-key-positions = <LT1 LT2 LM1 LM2 LM3 LM4 LH0 LH1 LH2>;
     ignored-layers = <MOUSE MOUSEVS MOUSEHS>;
 )
@@ -246,7 +246,7 @@ ZMK_MACRO(uc_shift,
 ZMK_MACRO(tog_mousev,
     wait-ms = <0>;
     tap-ms = <1>;
-    bindings = <&ib_tog_layer MOUSE>
+    bindings = <&smart_mouse>
              , <&macro_press &mo MOUSEVS>
              , <&macro_pause_for_release>
              , <&macro_release &mo MOUSEVS>;
@@ -255,7 +255,7 @@ ZMK_MACRO(tog_mousev,
 ZMK_MACRO(tog_mouseh,
     wait-ms = <0>;
     tap-ms = <1>;
-    bindings = <&ib_tog_layer MOUSE>
+    bindings = <&smart_mouse>
              , <&macro_press &mo MOUSEHS>
              , <&macro_pause_for_release>
              , <&macro_release &mo MOUSEHS>;
