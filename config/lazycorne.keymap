@@ -49,6 +49,7 @@
     y-input-code = <INPUT_REL_Y>;
     scale-multiplier = <2>;
     scale-divisor = <1>;
+    // 기본 레이어에서 입력을 받으면 바로 마우스 레이어로 넘어감
     bindings = <&smart_mouse>;
   };
   cirque_mmv {
@@ -60,7 +61,6 @@
     y-input-code = <INPUT_REL_Y>;
     scale-multiplier = <2>;
     scale-divisor = <1>;
-    // 아직 기능이 완벽하지 않음 터치를 하는동안 인식하는것이 아니라 움직임이 나타나야 인지함
     bindings = <&ib_tog_layer MOUSE>;
     y-invert;
   }; 

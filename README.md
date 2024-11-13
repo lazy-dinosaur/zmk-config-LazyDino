@@ -34,10 +34,14 @@
 ### 3. Cirque 트랙패드의 추가
 
 - **[Input behavior module](https://github.com/badjeff/zmk-input-behavior-listener) 적용**
-  - Trackpad 동작 시 MOUSE 레이어 자동으로 활성화 (800ms)
+
+  - Trackpad 동작 시 MOUSE 레이어 자동으로 활성화 (1500ms)
   - MOUSE 레이어에서 'D'+'F' 콤보를 사용해서 즉시 레이어 비활성화 MOUSE 레이어 이외에서는 'CANCEL'키로 동작
   - MOUSE 레이어와 기본 레이어에서 'R'키 홀드시 트랙패드의 y축 인풋만 활성화되며 마우스 수직 스크롤로 동작
   - MOUSE 레이어와 기본 레이어에서 'E'키 홀드시 트랙패드의 x축 인풋만 활성화되며 마우스의 수평 스크롤로 동작
+
+- SMART_MOUSE 기능
+  - 자동으로 MOUSE 레이어로 넘어간 이후 마우스에 해당하지 않는 키를 입력 한다면 해당 키는 `&trans`로 동작하며 이후 바로 MOUSE 레이어가 종료되고 기본 레이어로 복귀
 
 ### 4. 동글 추가
 
