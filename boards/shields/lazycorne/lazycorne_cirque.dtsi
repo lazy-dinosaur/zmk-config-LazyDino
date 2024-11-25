@@ -18,16 +18,16 @@
     group1 {
       psels = <NRF_PSEL(TWIM_SDA, 0, 17)>,
           <NRF_PSEL(TWIM_SCL, 0, 20)>;
-      // bias-disable;
-      bias-pull-up;
+      bias-disable;
+      // bias-pull-up;
     };
   };
   i2c1_sleep:i2c1_sleep {
     group1 {
       psels = <NRF_PSEL(TWIM_SDA, 0, 17)>,
           <NRF_PSEL(TWIM_SCL, 0, 20)>;
-      // bias-disable;
-      bias-pull-up;
+      bias-disable;
+      // bias-pull-up;
       low-power-enable;
     };
   };
@@ -47,7 +47,7 @@
         status = "disabled";
         dr-gpios = <&gpio0 6 (GPIO_ACTIVE_HIGH)>;
         sensitivity = "1x";
-        sleep;
+        // sleep;
         no-taps;
     };
 };

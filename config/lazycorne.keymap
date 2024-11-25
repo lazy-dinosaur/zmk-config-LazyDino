@@ -40,26 +40,14 @@
 #define QUICK_TAP_MS 175
 
 /{
-  cirque_mouse{
-    compatible = "zmk,input-behavior-listener";
-    device = <&vtrackpad>;
-    layers= <DEF>;
-    evt-type = <INPUT_EV_REL>;
-    x-input-code = <INPUT_REL_X>;
-    y-input-code = <INPUT_REL_Y>;
-    scale-multiplier = <1>;
-    scale-divisor = <1>;
-    // 기본 레이어에서 입력을 받으면 바로 마우스 레이어로 넘어감
-    bindings = <&smart_mouse>;
-  };
   cirque_mmv {
     compatible = "zmk,input-behavior-listener";
     device = <&vtrackpad>;
-    layers= <MOUSE>;
+    layers= <DEF MOUSE>;
     evt-type = <INPUT_EV_REL>;
     x-input-code = <INPUT_REL_X>;
     y-input-code = <INPUT_REL_Y>;
-    scale-multiplier = <1>;
+    scale-multiplier = <2>;
     scale-divisor = <1>;
     bindings = <&ib_tog_layer MOUSE>;
     y-invert;
@@ -97,7 +85,7 @@
   ib_tog_layer: ib_tog_layer {
     compatible = "zmk,input-behavior-tog-layer";
     #binding-cells = <1>;
-    time-to-live-ms = <25000>;
+    time-to-live-ms = <2500>;
   };
   ib_wheel_scaler: ib_wheel_scaler {
     compatible = "zmk,input-behavior-scaler";
