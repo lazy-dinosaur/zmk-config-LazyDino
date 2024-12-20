@@ -1,8 +1,15 @@
 manifest:
+  defaults:
+    remote: urob
+    revision: v0.1 # Pin everything to v0.1
+
   remotes:
+    - name: urob
+      url-base: https://github.com/urob
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
     - name: petejohanson
+
       url-base: https://github.com/petejohanson
     - name: urob
       url-base: https://github.com/urob
@@ -10,11 +17,24 @@ manifest:
       url-base: https://github.com/badjeff
     - name: lazy-dinosaur
       url-base: https://github.com/lazy-dinosaur
+
   projects:
+    # This is vanilla ZMK - just using my remote to pin the current state of main,
+    # as upstream hasn't yet released a version with mouse.
     - name: zmk
-      remote: urob
-      revision: main
+      revision: v0.1+mouse
       import: app/west.yml
+
+    # ZMK modules
+    - name: zmk-adaptive-key
+      path: modules/zmk/adaptive-key
+    - name: zmk-auto-layer
+      path: modules/zmk/auto-layer
+    - name: zmk-leader-key
+      revision: v0.1+locality
+      path: modules/zmk/leader-key
+    - name: zmk-tri-state
+      path: modules/zmk/tri-state
     - name: cirque-input-module
       remote: petejohanson
       revision: main
@@ -30,5 +50,32 @@ manifest:
     - name: zmk-config-LazyDino
       remote: lazy-dinosaur
       revision: master
+
+    # Temporarily overload Zephyr until
+    # https://github.com/zmkfirmware/zephyr/pull/40 is merged.
+    - name: zephyr
+      revision: v3.5.0+zmk-fixes
+      clone-depth: 1
+      import:
+        name-blocklist:
+          - ci-tools
+          - hal_altera
+          - hal_cypress
+          - hal_infineon
+          - hal_microchip
+          - hal_nxp
+          - hal_openisa
+          - hal_silabs
+          - hal_xtensa
+          - hal_st
+          - hal_ti
+          - loramac-node
+          - mcuboot
+          - mcumgr
+          - net-tools
+          - openthread
+          - edtt
+          - trusted-firmware-m
+
   self:
     path: config
