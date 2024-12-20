@@ -1,7 +1,4 @@
 manifest:
- defaults:
-    remote: urob
-    revision: v0.1 # Pin everything to v0.1
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
@@ -16,6 +13,7 @@ manifest:
   projects:
     - name: zmk
       remote: urob
+      revision: main
       import: app/west.yml
     - name: cirque-input-module
       remote: petejohanson
